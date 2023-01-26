@@ -1,7 +1,10 @@
 package org.ecn;
 
+import org.ecn.version2.Game;
+
 public class Main {
     public static void main(String[] args) {
-        System.out.println("hello world");
+        Game game = new Game();
+        game.play();
     }
 }
