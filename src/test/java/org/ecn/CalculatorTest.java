@@ -9,5 +9,6 @@ class CalculatorTest {
     @Test
     void add() {
         assertEquals(2, Calculator.add(1,1));
+        System.out.println("hello");
     }
 }
