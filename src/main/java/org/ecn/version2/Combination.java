@@ -1,5 +1,10 @@
 package org.ecn.version2;
 
+import lombok.Data;
+
+import java.util.Scanner;
+
+@Data
 class Combination {
     private String combination;
 
@@ -13,7 +18,7 @@ class Combination {
         this.combination = input.nextLine();
     }
 
-    public void checkCombination(String guess) {
+    public String checkCombination(String guess) {
         String markers = "";
         for (int i = 0; i < 4; i++) {
             if (guess.charAt(i) == this.combination.charAt(i)) {
@@ -25,5 +30,9 @@ class Combination {
             }
         }
         return markers;
+    }
+
+    public void reset() {
+        this.setCombination("");
     }
 }

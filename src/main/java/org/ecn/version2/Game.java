@@ -1,6 +1,9 @@
 package org.ecn.version2;
 
-class Game {
+import lombok.Data;
+
+@Data
+public class Game {
     private Plateau plateau;
     private Combination combination;
     private int round;
@@ -16,6 +19,7 @@ class Game {
         this.decoderScore = 0;
         this.won = false;
     }
+
     public void play() {
         while (!won) {
             if (round % 2 == 0) {
@@ -45,7 +49,7 @@ class Game {
                 combination.chooseCombination();
                 while (round < 12) {
                     System.out.println("Coder's turn to guess combination:");
-                    Player coder = newPlayer();
+                    Player coder = new Player();
                     coder.guessCombination();
                     String markers = combination.checkCombination(coder.getGuess());
                     plateau.addRow(coder.getGuess(), markers);

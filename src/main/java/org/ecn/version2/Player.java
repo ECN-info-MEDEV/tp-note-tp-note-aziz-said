@@ -1,5 +1,7 @@
 package org.ecn.version2;
 
+import java.util.Scanner;
+
 class Player {
     private String guess;
 

@@ -1,5 +1,8 @@
 package org.ecn.version2;
 
+import lombok.Data;
+
+@Data
 class Plateau {
     private String[] rows;
     private String[] markers;
@@ -18,5 +21,12 @@ class Plateau {
             System.out.print(rows[i] + " ");
             System.out.println(markers[i]);
         }
+    }
+
+    public void addRow(String guess, String markers) {
+
+    }
+
+    public void reset() {
     }
 }
