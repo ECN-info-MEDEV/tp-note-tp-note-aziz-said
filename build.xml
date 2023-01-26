@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<project name="Dame_TP6" basedir="." default="build">
-    <description>TP automation</description>
+<project name="TPNOTE-MASTERMIND" basedir="." default="build">
+    <description>TP Note MasterMind - Aziz ABID et Ahmad SAID</description>
     <property name="java.src.version" value="1.8"/>
     <property name="java.target.version" value="1.8"/>
 
