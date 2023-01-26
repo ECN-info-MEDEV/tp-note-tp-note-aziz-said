@@ -13,11 +13,8 @@ public class Game {
     private Plateau plateau;
     private Combination combination;
 
-    // mettre ces 4 parametres dans joueurs plus tard.
-    private String firstPlayerName;
-    private String secondPlayerName;
-    private int firstPlayerScore;
-    private int secondPlayerScore;
+    private Player firstPlayer;
+    private Player secondPlayer;
 
     /**
      * Constructor for the Game class.
@@ -30,10 +27,8 @@ public class Game {
     public Game(String firstPlayerName, String secondPlayerName, Scanner scanner, PrintStream printStream) {
         this.plateau = new Plateau();
         this.combination = new Combination();
-        this.firstPlayerScore = 0;
-        this.secondPlayerScore = 0;
-        this.firstPlayerName = firstPlayerName;
-        this.secondPlayerName = secondPlayerName;
+        this.firstPlayer = new Player(firstPlayerName);
+        this.secondPlayer = new Player(secondPlayerName);
         this.inputScanner = scanner;
         this.printStream = printStream;
     }
@@ -41,15 +36,15 @@ public class Game {
     /**
      * Plays one round of the game.
      *
-     * @param printStream      The print stream to use for output.
-     * @param inputScanner     The scanner to use for input.
-     * @param combination      The combination object to use for the game.
-     * @param plateau          The plateau object to use for the game.
-     * @param playerName       The name of the player.
+     * @param printStream  The print stream to use for output.
+     * @param inputScanner The scanner to use for input.
+     * @param combination  The combination object to use for the game.
+     * @param plateau      The plateau object to use for the game.
+     * @param playerName   The name of the player.
      * @return RunResults      The results of the round that was played.
      */
     public static RunResults playOneRun(PrintStream printStream, Scanner inputScanner,
-                                        Combination combination, Plateau plateau, String playerName) {
+                                        Combination combination, Plateau plateau, Player player) {
         RunResults runResults = new RunResults();
         combination.reset();
         plateau.reset();
@@ -57,12 +52,12 @@ public class Game {
         combination.generateCombination();
         printStream.print("Printing combination for learning purpose: ");
         printStream.println(combination.getCombinationString());
+        String playerName = player.getPlayerName();
         while (runResults.getRounds() < 12) {
             printStream.println(playerName + "'s turn to guess combination:");
-            Player decoder = new Player();
-            decoder.guessCombination(printStream, inputScanner);
-            String markers = combination.checkCombination(decoder.getGuess());
-            plateau.addRow(decoder.getGuess(), markers);
+            player.guessCombination(printStream, inputScanner);
+            String markers = combination.checkCombination(player.getGuess());
+            plateau.addRow(player.getGuess(), markers);
             if (markers.equals("bbbb")) {
                 runResults.setSummaryInfo(playerName + " won!");
                 runResults.incrementScore();
@@ -83,31 +78,30 @@ public class Game {
      */
     public void play() {
         int round = 0;
-        String currentPlayer;
+        Player currentPlayer;
         RunResults runResults;
         int totalGame = 100;
         // play 100 total games currently
         // at anytime users could stop
         while (round < totalGame) {
             if (round % 2 == 0) {
-                currentPlayer = this.getFirstPlayerName();
+                currentPlayer = this.getFirstPlayer();
             } else {
-                currentPlayer = this.getSecondPlayerName();
+                currentPlayer = this.getSecondPlayer();
             }
             Combination.printColorLegend(printStream);
             Combination.printCheckCombinationLegend(printStream);
             runResults = playOneRun(this.getPrintStream(), this.getInputScanner(),
                     this.getCombination(), this.getPlateau(), currentPlayer);
             this.getPrintStream().println(runResults.getSummaryInfo());
-            if (currentPlayer.equals(this.getFirstPlayerName())) {
-                firstPlayerScore += runResults.getScore();
-            } else {
-                secondPlayerScore += runResults.getScore();
-            }
+            currentPlayer.addScore(runResults.getScore());
 
             round++;
-            this.getPrintStream().println("Current score for " + this.getFirstPlayerName() + " : " + this.getFirstPlayerScore());
-            this.getPrintStream().println("Current score for " + this.getSecondPlayerName() + " : " + this.getSecondPlayerScore());
+            this.getPrintStream().println("Current score for " + this.getFirstPlayer().getPlayerName()
+                    + " : " + this.getFirstPlayer().getScore());
+
+            this.getPrintStream().println("Current score for " + this.getSecondPlayer().getPlayerName()
+                    + " : " + this.getSecondPlayer().getScore());
         }
     }
 }

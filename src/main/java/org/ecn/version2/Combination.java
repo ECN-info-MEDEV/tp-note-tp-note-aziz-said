@@ -3,16 +3,12 @@ package org.ecn.version2;
 import lombok.Data;
 
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.io.PrintStream;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Random;
-import java.util.Scanner;
+import java.util.*;
 
 @Data
 class Combination {
-    private static ArrayList<String> possibleColors = new ArrayList<>(Arrays.asList(
+    private static List<String> possibleColors = new ArrayList<>(Arrays.asList(
             "y", // yellow
             "b", // blue
             "r", // red
@@ -143,7 +139,7 @@ class Combination {
         this.setCombinationString("");
     }
 
-    public ArrayList<String> getPossibleColors() {
+    public List<String> getPossibleColors() {
         return possibleColors;
     }
 }

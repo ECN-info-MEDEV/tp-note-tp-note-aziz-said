@@ -1,12 +1,19 @@
 package org.ecn.version2;
 
+import lombok.Data;
+
 import java.io.PrintStream;
 import java.util.Scanner;
 
+@Data
 class Player {
+    private String playerName;
+    private int score;
     private String guess;
 
-    public Player() {
+    public Player(String playerName) {
+        this.playerName = playerName;
+        this.score = 0;
         this.guess = "";
     }
 
@@ -17,5 +24,9 @@ class Player {
 
     public String getGuess() {
         return this.guess;
+    }
+
+    public void addScore(int score) {
+        this.score+= score;
     }
 }
