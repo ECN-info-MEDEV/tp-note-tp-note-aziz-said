@@ -2,6 +2,7 @@ package org.ecn.version2;
 
 import lombok.Data;
 
+import java.io.PrintStream;
 import java.util.ArrayList;
 
 @Data
@@ -16,12 +17,12 @@ class Plateau {
         this.round = 0;
     }
 
-    public void display() {
-        System.out.println("Round: " + round);
+    public void display(PrintStream printStream) {
+        printStream.println("Round: " + round);
         for (int i = 0; i < this.getRows().size(); i++) {
-            System.out.print("Row " + (i + 1) + ": ");
-            System.out.print(this.getRows().get(i) + " ");
-            System.out.println(this.getMarkers().get(i));
+            printStream.print("Row " + (i + 1) + ": ");
+            printStream.print(this.getRows().get(i) + " ");
+            printStream.println(this.getMarkers().get(i));
         }
     }
 
